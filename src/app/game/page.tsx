@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 
@@ -1015,6 +1015,14 @@ const questions: Record<string, Question> = {
 };
 
 export default function GamePage() {
+  return (
+    <Suspense fallback={<div>Cargando...</div>}>
+      <GameContent />
+    </Suspense>
+  );
+}
+
+function GameContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const startId = searchParams.get("start") || "castillo";
